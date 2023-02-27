@@ -9,6 +9,10 @@ import {
   
 } from "semantic-ui-react";
 
+const JSON_HEADERS = {
+  'Content-Type': 'application/json'
+};
+
 export function ViewCustomer() {
   const params = useParams();
   const [customer, setCustomer] = useState({});
@@ -20,6 +24,13 @@ export function ViewCustomer() {
       .then((response) => response.json())
       .then(setItems);
   };
+
+  const removeItem = (id) => {
+        fetch('/api/v1/items/' + id, {
+            method: 'DELETE',
+            headers: JSON_HEADERS
+        }).then(fetchItems)            
+    }
 
   console.log(params);
 
@@ -53,30 +64,7 @@ export function ViewCustomer() {
       
 
       <div>
-        {/* <Divider hidden></Divider>
-      <Segment inverted style={{width: "200px"}}>
-        <Form >
-          <Form.Field>
-            <label>Autorius</label>
-            <input
-              placeholder="Autorius"
-              id="author"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Komentaras</label>
-            <TextArea
-              placeholder="Last Name"
-              id="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-          </Form.Field>
-          <Button onClick={createComment}>Paskelbti</Button>
-        </Form>
-        </Segment> */}
+      
       </div>
       <Table selectable >
                                 <Table.Header>
@@ -84,7 +72,8 @@ export function ViewCustomer() {
                                         <Table.HeaderCell>Pavadinimas</Table.HeaderCell>
                                         <Table.HeaderCell>Svoris</Table.HeaderCell>
                                         <Table.HeaderCell>Sektorius</Table.HeaderCell>
-                                        <Table.HeaderCell>Pridėjimo data</Table.HeaderCell>                                        
+                                        <Table.HeaderCell>Pridėjimo data</Table.HeaderCell>    
+                                        <Table.HeaderCell>Veiksmai</Table.HeaderCell>                                       
                                     </Table.Row>
                                 </Table.Header>
 
@@ -95,6 +84,7 @@ export function ViewCustomer() {
                                             <Table.Cell>{item.weight}</Table.Cell>
                                             <Table.Cell>{item.sector}</Table.Cell>                                            
                                             <Table.Cell>{item.createdDate}</Table.Cell>
+                                            <Button basic compact title='Ištrinti' icon='trash alternate' onClick={() => removeItem(item.id)}></Button>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>
