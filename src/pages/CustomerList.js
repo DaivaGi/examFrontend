@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Table, Divider, Segment} from 'semantic-ui-react'
 
 const JSON_HEADERS = {
     'Content-Type': 'application/json'
@@ -24,11 +24,13 @@ export function CustomerListPage() {
             method: 'DELETE',
             headers: JSON_HEADERS
         }).then(fetchCustomers);
-
+    
+ 
        
     }
 
-    return (<div> 
+    return (<div>
+         
         <h2>Klientai</h2> 
 
         <Table selectable >
@@ -51,7 +53,7 @@ export function CustomerListPage() {
                                             <Table.Cell>{customer.surname}</Table.Cell>
                                             <Table.Cell>{customer.phoneNumber}</Table.Cell>
                                             <Table.Cell>{customer.birthday}</Table.Cell>
-                                            <Table.Cell>{customer.loyal}</Table.Cell>
+                                            <Table.Cell>{customer.loyal ? "Lojalus" : " "}</Table.Cell>
                                             <Table.Cell>{customer.createdDate}</Table.Cell>
 
                                             <Table.Cell collapsing>
@@ -61,7 +63,9 @@ export function CustomerListPage() {
                                         </Table.Row>
                                     ))}
                                 </Table.Body>
-                            </Table>      
+                            </Table> 
+                            <Divider></Divider> 
+                              
         
     </div>);
 }
