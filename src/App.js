@@ -1,24 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import '@wix/design-system/styles.global.css';
+import { CustomerListPage } from './pages/CustomerList';
+import { WarehouseMenu } from './components/WarehouseMenu';
+import { CreateCustomerPage } from './pages/CreateCustomer';
+import { ViewCustomer } from './pages/ViewCustomer';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Container, Header } from 'semantic-ui-react'
+
 
 function App() {
+
   return (
+    <Container text>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HashRouter>
+        <WarehouseMenu />
+
+        <Routes>
+          <Route path='/' element={<CustomerListPage />} />
+          <Route path='/create' element={<CreateCustomerPage/>} />
+          <Route path='/customers/view/:id' element={<ViewCustomer />} />          
+        </Routes>
+      </HashRouter> 
     </div>
+    </Container>
   );
 }
 
