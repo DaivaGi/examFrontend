@@ -6,7 +6,8 @@ import { WarehouseMenu } from './components/WarehouseMenu';
 import { CreateCustomerPage } from './pages/CreateCustomer';
 import { ViewCustomer } from './pages/ViewCustomer';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Container, Header } from 'semantic-ui-react'
+import { Container, Header } from 'semantic-ui-react';
+import {CreateItem} from './pages/CreateItem';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Routes>
           <Route path='/' element={<CustomerListPage />} />
           <Route path='/create' element={<CreateCustomerPage/>} />
-          <Route path='/customers/view/:id' element={<ViewCustomer />} />          
+          <Route path='/customers/view/:id' element={<ViewCustomer />} /> 
+          <Route path='/create/items/:id' element={<CreateItem />} />           
         </Routes>
       </HashRouter> 
     </div>

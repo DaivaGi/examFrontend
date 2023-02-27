@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useHref } from 'react-router-dom';
+import { useHref, useParams } from 'react-router-dom';
 import { Button, Table } from 'semantic-ui-react'
 
 
-export function CreateCustomerPage(props) {
+export function CreateItem(props) {
+    const params = useParams();
     const [name, setName] = useState("");   
     const [weight, setWeight] = useState("");
     const [sector, setSector] = useState("");
@@ -24,9 +25,9 @@ export function CreateCustomerPage(props) {
         }
     };
 
-    const createCustomer = () => {
+    const createItem = () => {
         fetch(
-            `/api/v1/customers/${params.id}/items`, {
+            `/api/v1/items/${params.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -66,7 +67,7 @@ export function CreateCustomerPage(props) {
             </div>
             <div>
                 <label htmlFor="sector">Sektorius</label>
-                <input id="sector" value={sector} onChange={(e) => setLoyal(e.target.value)}/>
+                <input id="sector" value={sector} onChange={(e) => setSector(e.target.value)}/>
             </div> 
             <div>
                 <Button onClick={createItem}>Pridėti</Button>

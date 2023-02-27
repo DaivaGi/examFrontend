@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Comment,
   Button,
-  Checkbox,
-  Form,
-  TextArea,
-  Card,
-    Segment,
+  Table,
     Divider
   
 } from "semantic-ui-react";
@@ -23,21 +20,6 @@ export function ViewCustomer() {
       .then((response) => response.json())
       .then(setItems);
   };
-
-  // const createItem = () => {
-  //   fetch(`/api/v1/items/${params.id}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       author,
-  //       text,
-  //     }),
-  //   })
-  //     .then(applyResult)
-  //     .then(fetchComments);
-  // };
 
   console.log(params);
 
@@ -59,15 +41,15 @@ export function ViewCustomer() {
       {console.log(customer)}
 
       <div>{customer.createdDate}</div>
-      <div>{customer.name}</div>
+      <div>Vardas: {customer.name}</div>
 
       <div>
-        <b>{customer.surname}</b>
+        <b>Pavarde: {customer.surname}</b>
       </div>
 
-      <div>{customer.phoneNumber}</div>
-      <div>{customer.birthday}</div>
-      <div>{customer.loyal}</div>
+      <div>Tel. Nr.: {customer.phoneNumber}</div>
+      <div>Gimimo data: {customer.birthday}</div>
+      <div>Lojalumas: {customer.loyal}</div>
       
 
       <div>
@@ -96,27 +78,29 @@ export function ViewCustomer() {
         </Form>
         </Segment> */}
       </div>
-      <Comment.Group>
-        {items.map((item, index) => (
-          <Comment>
-            <Comment.Content key={index}>
-              <Comment.Author>{item.name}</Comment.Author>
-              <Comment.Metadata>
-                <span>{item.createdDate}</span>
-              </Comment.Metadata>
-              <Comment.Text>{item.weight}</Comment.Text>
-              <Comment.Text>{item.sector}</Comment.Text>
-            </Comment.Content>
-          </Comment>
+      <Table selectable >
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>Pavadinimas</Table.HeaderCell>
+                                        <Table.HeaderCell>Svoris</Table.HeaderCell>
+                                        <Table.HeaderCell>Sektorius</Table.HeaderCell>
+                                        <Table.HeaderCell>Pridėjimo data</Table.HeaderCell>                                        
+                                    </Table.Row>
+                                </Table.Header>
 
-          // <p key={index}>
-          //     <p>{comment.createdDate}</p>
-          //     <p>Autorius: {comment.author}</p>
-          //     <p>Komentaras: {comment.text}</p>
-
-          // </p>
-        ))}
-      </Comment.Group>
+                                <Table.Body>
+                                    {items.map(item => (
+                                        <Table.Row key={item.id}>
+                                            <Table.Cell>{item.name}</Table.Cell>
+                                            <Table.Cell>{item.weight}</Table.Cell>
+                                            <Table.Cell>{item.sector}</Table.Cell>                                            
+                                            <Table.Cell>{item.createdDate}</Table.Cell>
+                                        </Table.Row>
+                                    ))}
+                                </Table.Body>
+                            </Table>     
+      
+      <Link to={'/create/items/' + params.id}><Button>Pridėti naują</Button></Link>
       <Divider></Divider>
     </div>
   );
